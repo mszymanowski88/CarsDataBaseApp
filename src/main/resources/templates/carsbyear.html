@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+</style>
+
+<p style="background-color:#F0E68C;">===============Car By Year============================ </p>
+
+<table>
+  <tr>
+    <th>Id:</th>
+    <th>Brand:</th>
+    <th>Model:</th>
+    <th>Colour:</th>
+    <th>Production Year:</th>
+  </tr>
+
+  <tr th:each="car: ${listOfCarsByYear}">
+
+    <td th:text="${car.getId()}"/></td>
+    <td th:text="${car.getBrand()}"/></td>
+    <td th:text="${car.getModel()}"/></td>
+    <td th:text="${car.getColor()}"/></td>
+    <td th:text="${car.getProductionYear()}"/>
+
+  </tr>
+
+
+
+  <br>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<td>-->
+
+
+<!--  </tr>-->
+
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<style>-->
+<!--  table {-->
+<!--    font-family: arial, sans-serif;-->
+<!--    border-collapse: collapse;-->
+<!--    width: 50%;-->
+<!--  }-->
+
+<!--  td, th {-->
+<!--    border: 1px solid #dddddd;-->
+<!--    text-align: left;-->
+<!--    padding: 8px;-->
+<!--  }-->
+
+<!--  tr:nth-child(even) {-->
+<!--    background-color: #dddddd;-->
+<!--  }-->
+
+
+<!--</style>-->
+
+
+
+
+
+<!--&lt;!&ndash;<tr th:each="car: ${}">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <form th:action="@{/carsbyear/{productionYear} (productionYear=${car.getProductionYear()})}" th:object="${car}" method="post">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        Car of Id <span th:text="${car.getProductionYear()}">Get Car</span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;    <p>Year: <input type="text" th:field="*{car.}"></p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <p><input type="submit" value="find"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;<table>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Id:</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Brand:</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Model:</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Colour:</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Production Year:</th>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+
+
+
+
+<!--&lt;!&ndash;    &lt;!&ndash;    <form th:action="@{/add}" th:object="${newCar}" method="post">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;        <p>Id: <input type="text" th:field="*{id}"></p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;        <p>Brand: <input type="text" th:field="*{brand}"></p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;        <p>Model: <input type="text" th:field="*{model}"></p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;        <p>Color: <input type="text" th:field="*{color}"></p>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;        <p>Production year: <input type="text" th:field="*{productionYear}"></p>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash;        <p><input type="submit" value="add new car"></p>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;    <tr th:each="car: ${}">&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash;    <form action="#" th:action="@{'/delete/{id}'(id=${car.getId()})}" th:method="post">&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;        &lt;!&ndash;        <input type="hidden" name="_method" value="delete"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;        <button id="submitDelete" class="button1" type="submit">Delete </button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;    </form>&ndash;&gt;&ndash;&gt;-->
+
+
+
+
+
+<!--&lt;!&ndash;&lt;!&ndash;        <td th:text="${car.getId()}"/></tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <td th:text="${car.getBrand()}"/></td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <td th:text="${car.getModel()}"/></td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <td th:text="${car.getColor()}"/></td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <td th:text="${car.getProductionYear()}"/>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </tr>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <br>&ndash;&gt;-->
+<!--&lt;!&ndash;</table>&ndash;&gt;-->
+
+
+
+
+<!--</body>-->
+<!--</html>-->
