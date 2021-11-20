@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<p style="background-color:#F0E68C;">===============Add Car============================ </p>
+<form th:action="@{/add}" th:object="${newCar}" method="post">
+    <p>Id: <input type="text" th:field="*{id}"></p>
+    <p>Brand: <input type="text" th:field="*{brand}"></p>
+    <p>Model: <input type="text" th:field="*{model}"></p>
+    <p>Color: <input type="text" th:field="*{color}"></p>
+    <p>Production year: <input type="text" th:field="*{productionYear}"></p>
+    <p><input type="submit" value="add new car"></p>
+
+
+</form>
+<p style="background-color:#F0E68C;">===============Delete Car============================ </p>
+<form th:action="@{/delete}" th:object="${newCar}" method="post">
+    <p>Id: <input type="text" th:field="*{id}"></p>
+    <p><input type="submit" value="Delete"></p>
+
+</form>
+
+<p style="background-color:#F0E68C;">===============By Year============================ </p>
+<form th:action="@{/carsbyear}" th:object="${newCar}" method="post">
+    <p>Id: <input type="text" th:field="*{productionYear}"></p>
+    <p><input type="submit" value="Delete"></p>
+
+</form>
+
+<!--<p style="background-color:#F0E68C;">===============Find Car by Year ============================ </p>-->
+<!--&lt;!&ndash;<tr th:each="car: ${db}">&ndash;&gt;-->
+<!--<form     th:action="@{/carsbyear/{productionYear} (productionYear=${newCar.getProductionYear()})}"  th:object="${listOfCarsByYear}"  method="post">-->
+<!--&lt;!&ndash;&lt;!&ndash;<form  action="#" th:action="@{/carsbyear/{productionYear} (productionYear=${car.getProductionYear()})}"   method="get">&ndash;&gt;&ndash;&gt;-->
+<!--    <p>Id: <input type="text" th:field="*{productionYear}"></p>-->
+<!--    <p><input type="submit" value="get"></p>-->
+
+
+<!--    th:object="${listOfCarsByYear}"-->
+    <!--    <p>Year: <input type="text" th:field="*{get(1)}"></p>-->
+<!--    <p><input type="submit" value="get"></p>-->
+<!--<form th:action="@{/delete}" th:object="${newCar}" method="post">-->
+<!--    <p>Id: <input type="text" th:field="*{id}"></p>-->
+<!--    <p><input type="submit" value="Delete"></p>-->
+
+</form>
+
+    <!--    Year <span th:text="${car.getProductionYear()}">Get Car</span>-->
+<!--    <button id="submit" class="button" type="submit">Get car</button>-->
+
+</form>
+
+<!--<p style="background-color:#F0E68C;">===============Find Car by Year ============================ </p>-->
+<!--&lt;!&ndash;<tr th:each="car: ${db}">&ndash;&gt;-->
+<!--<form   action="#"  th:action="@{/carsbyear/{productionYear} (productionYear=${car.getProductionYear()})}"   method="get">-->
+<!--    &lt;!&ndash;<form  action="#" th:action="@{/carsbyear/{productionYear} (productionYear=${car.getProductionYear()})}"   method="get">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <p>Id: <input type="text" th:field="*{productionYear}"></p>&ndash;&gt;-->
+<!--    Year <span th:text="${car.getProductionYear()}">Get Car</span>-->
+<!--    <button id="submit" class="button" type="submit">Get car</button>-->
+
+<!--</form>-->
+
+
+
+</tr>
+
+
+<table>
+   <tr>
+       <th>Id:</th>
+       <th>Brand:</th>
+       <th>Model:</th>
+       <th>Colour:</th>
+       <th>Production Year:</th>
+   </tr>
+
+<tr th:each="car: ${db}">
+    <td th:text="${car.getId()}"/></td>
+    <td th:text="${car.getBrand()}"/></td>
+    <td th:text="${car.getModel()}"/></td>
+    <td th:text="${car.getColor()}"/></td>
+    <td th:text="${car.getProductionYear()}"/>
+
+    </tr>
+
+    <br>
+</table>
+
+<!--<p style="background-color:#F0E68C;">===============Car By Year============================ </p>-->
+
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>Id:</th>-->
+<!--        <th>Brand:</th>-->
+<!--        <th>Model:</th>-->
+<!--        <th>Colour:</th>-->
+<!--        <th>Production Year:</th>-->
+<!--    </tr>-->
+
+<!--    <tr th:each="car: ${listOfCarsByYear}">-->
+<!--        <td th:text="${car.g}"/></td>-->
+<!--        <td th:text="${car.getBrand()}"/></td>-->
+<!--        <td th:text="${car.getModel()}"/></td>-->
+<!--        <td th:text="${car.getColor()}"/></td>-->
+<!--        <td th:text="${car.getProductionYear()}"/>-->
+
+<!--    </tr>-->
+
+
+
+<!--    <br>-->
+<!--</table>-->
+
+<!--    <td>-->
+
+
+</tr>
+
+<p style="background-color:#F0E68C;">===============Car By Year============================ </p>
+
+<table>
+    <tr>
+        <th>Id:</th>
+        <th>Brand:</th>
+        <th>Model:</th>
+        <th>Colour:</th>
+        <th>Production Year:</th>
+    </tr>
+
+    <tr th:each="car: ${listOfCarsByYear}">
+
+                <td th:text="${car.getId()}"/></td>
+
+        <td th:text="${car.getId()}"/></td>
+        <td th:text="${car.getBrand()}"/></td>
+        <td th:text="${car.getModel()}"/></td>
+        <td th:text="${car.getColor()}"/></td>
+        <td th:text="${car.getProductionYear()}"/>
+
+    </tr>
+
+
+
+    <br>
+</table>
+
+</body>
+</html>
+<!--    <p style="background-color:#F0E68C;">===============By Year============================ </p>-->
+<!--    <tr th:each="car: ${listOfCarsByYear}">-->
+
+<!--        &lt;!&ndash;    <form action="#" th:action="@{'/delete/{id}'(id=${car.getId()})}" th:method="post">&ndash;&gt;-->
+
+<!--        &lt;!&ndash;        <input type="hidden" name="_method" value="delete"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <button id="submitDelete" class="button1" type="submit">Delete </button>&ndash;&gt;-->
+<!--        &lt;!&ndash;    </form>&ndash;&gt;-->
+
+
+
+
+
+<!--        <td th:text="${car.getId()}"/></td>-->
+<!--        <td th:text="${car.getBrand()}"/></td>-->
+<!--        <td th:text="${car.getModel()}"/></td>-->
+<!--        <td th:text="${car.getColor()}"/></td>-->
+<!--        <td th:text="${car.getProductionYear()}"/>-->
+
+<!--    </tr>-->
+<!--    <br>-->
+<!--    <td>Car brand:</td>-->
+<!--    <td th:text="${car.brand}"/>-->
+<!--    </td>-->
+<!--    <br>-->
+<!--    <td>Car model:</td>-->
+<!--    <td th:text="${car.model}"/>-->
+<!--    </trtrettttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttd>-->
+
+<!--    <p>Yaer: <input type="text" th:field="*{car.getProductionYear()}"></p>-->
+<!--    <p><input type="submit" value="Delete"></p>-->
+<!--<input type="text" id="myInput" onkeyup="function myFunction() {-->
+
+<!--}-->
+<!--myFunction()" placeholder="Search for year" title="Type in a name">-->
+<!--<form th:action="@{/carsDb}" method="get">-->
+<!--<input id="txtSearch" type="text" name="keyword">-->
+<!--<button type="submit">Go</button>-->
+<!--<p style="background-color:#DDA0DD;">===============Car by ID ============================ </p>-->
+<!--<tr th:each="id: ${db}">-->
+<!--    <form action="#" th:action="@{'/car/{id}'(id=${car.getId()})}" th:method="get">-->
+
+
+<!--        Car of Id <span th:text="${car.getId()}">Get Car</span>-->
+<!--        <button id="submit" type="submit">Get car</button>-->
+<!--    </form>-->
+
+
+
+<!--    <form th:action="@{/add}" th:object="${newCar}" method="post">-->
+<!--        <p>Id: <input type="text" th:field="*{id}"></p>-->
+<!--        <p>Brand: <input type="text" th:field="*{brand}"></p>-->
+<!--        <p>Model: <input type="text" th:field="*{model}"></p>-->
+<!--        <p>Color: <input type="text" th:field="*{color}"></p>-->
+<!--        <p>Production year: <input type="text" th:field="*{productionYear}"></p>-->
+
+<!--        <p><input type="submit" value="add new car"></p>-->
