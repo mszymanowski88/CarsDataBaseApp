@@ -7,10 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class CarDaoImpl implements CarDao {
@@ -104,29 +101,30 @@ public void saveCar(long id, String brand, String model, String color, int produ
         return  dbCarList;
     }
 
-    public  List<Car>  getCarFromListByYcear(Car car)
-    {
+//    public  List<Car>  getCarFromListByYcear(Car car)
+//    {
+//
+//
+//        int topass = car.getProductionYear();
+//
+//        List<Car> dbCarList = new ArrayList<>();
+//        String sql = "SELECT * FROM cars WHERE year="+topass;
+//        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
+//        maps.stream().forEach(element -> dbCarList.add(new Car(
+//                Long.parseLong(String.valueOf(element.get("car_id"))),
+//                String.valueOf(element.get("brand")),
+//
+//                String.valueOf(element.get("model")),
+//                String.valueOf(element.get("color")),
+//                Integer.parseInt(String.valueOf(element.get("year")))
+//
+//
+//        )));
+//
+//        return  dbCarList;
+//    }
 
-
-        int topass = car.getProductionYear();
-
-        List<Car> dbCarList = new ArrayList<>();
-        String sql = "SELECT * FROM cars WHERE year="+topass;
-        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-        maps.stream().forEach(element -> dbCarList.add(new Car(
-                Long.parseLong(String.valueOf(element.get("car_id"))),
-                String.valueOf(element.get("brand")),
-
-                String.valueOf(element.get("model")),
-                String.valueOf(element.get("color")),
-                Integer.parseInt(String.valueOf(element.get("year")))
-
-
-        )));
-
-        return  dbCarList;
-    }
-
+//
     public  List<Car>  getCarFromListByYearFinal(int productionYear)
     {
 
@@ -149,6 +147,41 @@ public void saveCar(long id, String brand, String model, String color, int produ
 
         return  dbCarList;
     }
+
+
+    public List listOfProductionYears()
+    {
+        Set<Integer> list = new HashSet<>();
+
+
+        for(Car car : showListOfCars())
+        {
+
+            list.add(car.getProductionYear());
+        }
+        Integer[] array = list.stream().toArray(Integer[]::new);
+
+
+        return  new ArrayList<>(Arrays.asList(array));
+    }
+//
+//    public  List<Car>  getCarFromListByYearFinal1(int productionYear)
+//    {
+//        listOfProductionYears().get(productionYear)
+//
+//        return  dbCarList;
+//    }
+//
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void testTest()
+//    {
+//        for( Integer i : listOfProductionYears())
+//        {
+//            System.out.println(i);
+//
+//        }
+//
+//    }
 
 
 //    public  Car searchTheYear (Car car)

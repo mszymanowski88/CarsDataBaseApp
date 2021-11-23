@@ -31,7 +31,7 @@ public class carListDbController {
     }
 
     @GetMapping("/carsDb")
-    public String showCarsDb(Model model,Car car)
+    public String showCarsDb(Model model)
     {
 //int value = 2018;
 int value;
@@ -39,7 +39,10 @@ int value;
         model.addAttribute("db",carDaoImpl.showListOfCars());
         model.addAttribute("newCar",newCarToAdd(new Car()));
         model.addAttribute("carToRemove",removeCar1(new Car()));
-//        model.addAttribute("findByYear",getCarByTheYear(value) );
+        model.addAttribute("listOfCarsByYear12", carDaoImpl.listOfProductionYears());
+//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYearFinal(productionYear));
+
+
 //        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(new Car()));
 
 //        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(new Car()));
@@ -47,12 +50,33 @@ int value;
 //        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(carClass));
         return "carsDb";
     }
+//
+//    @GetMapping("/carsDb")
+//    public String showCarsDbYear(Model model, @PathVariable int productionYear)
+//    {
+//
+//
+//
+//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYearFinal(productionYear));
+//
+//
+////        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(new Car()));
+//
+////        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(new Car()));
+////        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(carClass));
+////        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(carClass));
+//        return "carsDb";
+//    }
 
 
-    @GetMapping("/carsbyear")
+    @GetMapping("/carsDb/{productionYear}")
+//    @GetMapping("/carsDb")
     public String showCarsDbYear1(@PathVariable int productionYear, Model model)
+
     {
-        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarByYear1(productionYear));
+//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYearFinal(productionYear));
+//        model.addAttribute("listOfCarsByYear1",carDaoImpl.getCarFromListByYearFinal(productionYear));
+        model.addAttribute("listOfCarsByYear12",carDaoImpl.showListOfCars());
 
 //        for(Car car : carDaoImpl.getCarFromListByYcear(carClass) )
 //        {
@@ -70,10 +94,36 @@ int value;
 //        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(new Car()));
 //        model.addAttribute("listOfCarsByYear",getCarByTheYear11(new Car()));
 
-        return "redirect:carsbyear";
+        return "carsbyear";
     }
 
 
+    @GetMapping("/carsbyear/{productionYear}")
+//    @GetMapping("/carsDb")
+    public String showbyYear(@PathVariable int productionYear, Model model)
+
+    {
+//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYearFinal(productionYear));
+        model.addAttribute("listOfCarsByYear1",carDaoImpl.getCarFromListByYearFinal(productionYear));
+
+//        for(Car car : carDaoImpl.getCarFromListByYcear(carClass) )
+//        {
+//            System.out.println("from class");
+//            System.out.println(car);
+//        }
+
+//
+//        model.addAttribute("db",carDaoImpl.showListOfCars());
+//        model.addAttribute("newCar",newCarToAdd(new Car()));
+//        model.addAttribute("carToRemove",removeCar1(new Car()));
+//        model.addAttribute("findByYear",getCarByTheYear(value) );
+//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYear(value));
+//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarByYear(value));
+//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(new Car()));
+//        model.addAttribute("listOfCarsByYear",getCarByTheYear11(new Car()));
+
+        return "carsbyear";
+    }
 
 
     public Car newCarToAdd(Car car1)
@@ -128,7 +178,9 @@ int value;
 ////        }
 //    }
 
-    @PostMapping("/carsbyear")
+
+//    @PostMapping("/carsbyear/{productionYear}")
+    @PostMapping("/carsDb/{productionYear}")
     public String getCarByTheYear11(@ModelAttribute int productionYear ) {
 
 
@@ -136,20 +188,51 @@ int value;
 
 
 //           carDaoImpl.getCarFromListByYear(productionYear);
-        carDaoImpl.getCarFromListByYearFinal(productionYear);
-
-        for(Car car2 :carDaoImpl.getCarFromListByYearFinal(productionYear) )
-        {
-
-            System.out.println("11");
-            System.out.println(car2);
-        }
-        return "redirect:/carsDb";
-//        return  "carsbyear";
+//        carDaoImpl.getCarFromListByYearFinal(productionYear);
+//
+//        for(Car car2 :carDaoImpl.getCarFromListByYearFinal(productionYear) )
+//        {
+//
+//            System.out.println("11");
+//            System.out.println(car2);
+//        }
+//        return "redirect:/carsDb";
+        return  "redirect:/carsbyear";
 //        } else {
 //            return "redirect:/error";
 //        }
     }
+
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void testtest()
+//    {
+//
+//        System.out.println(carDaoImpl.getCarFromListByYearFinal(2011));
+//    }
+
+
+//    @PostMapping("/carsbyear")
+//    public String getCarByTheYear11(@ModelAttribute int productionYear ) {
+//
+//
+////        if (carById.isPresent()) {
+//
+//
+////           carDaoImpl.getCarFromListByYear(productionYear);
+//        carDaoImpl.getCarFromListByYearFinal(productionYear);
+//
+//        for(Car car2 :carDaoImpl.getCarFromListByYearFinal(productionYear) )
+//        {
+//
+//            System.out.println("11");
+//            System.out.println(car2);
+//        }
+//        return "redirect:/carsDb";
+////        return  "carsbyear";
+////        } else {
+////            return "redirect:/error";
+////        }
+//    }
 
 
 
@@ -158,11 +241,11 @@ int value;
     public String addCar(@ModelAttribute Car car) {
 //    public String addCar(@ModelAttribute long id, String brand, int productionYear, String model, String color) {
 
-     carDaoImpl.saveCar(car.getId(),car.getBrand(),car.getModel(),car.getColor(),car.getProductionYear());
+        carDaoImpl.saveCar(car.getId(),car.getBrand(),car.getModel(),car.getColor(),car.getProductionYear());
 
 
 
-            return "redirect:/carsDb";
+        return "redirect:/carsDb";
 
     }
 
@@ -202,20 +285,20 @@ int value;
 //    }
 
 
-    @PostMapping("/carsbyear/{productionYear}")
-    public String getCarByTheYearFinal(@ModelAttribute Car car ) {
-
-
-//        if (carById.isPresent()) {
-
-
-//           carDaoImpl.getCarFromListByYear(productionYear);
-        carDaoImpl.getCarFromListByYcear(car);
-        return  "carsbyear";
-//        } else {
-//            return "redirect:/error";
-//        }
-    }
+//    @PostMapping("/carsbyear/{productionYear}")
+//    public String getCarByTheYearFinal(@ModelAttribute Car car ) {
+//
+//
+////        if (carById.isPresent()) {
+//
+//
+////           carDaoImpl.getCarFromListByYear(productionYear);
+//        carDaoImpl.getCarFromListByYcear(car);
+//        return  "carsbyear";
+////        } else {
+////            return "redirect:/error";
+////        }
+//    }
 
 
 
@@ -228,28 +311,31 @@ int value;
 //
 //        return  "redirect:/carsbyear";
 //    }
-
-    @GetMapping("/carsbyear/{productionYear}")
-    public String getCarByYear(@PathVariable Car car, Model model) {
-//        Optional<Car> carById = carService.getCarById(productionYear);
 //
-//        if (carById.isPresent()) {
-//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYear(productionYear));
-        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(car));
-//        model.addAttribute("listOfCarsByYear1",getCarByTheYear(productionYear,productionYear));
-            return  "redirect:/carsbyear";
-//        } else {
-//            return "redirect:/error";
-//        }
-    }
+//    @GetMapping("/carsDb/{productionYear}")???
+//    public String getCarByYear(@PathVariable Car car, Model model) {
+////        Optional<Car> carById = carService.getCarById(productionYear);
+////
+////        if (carById.isPresent()) {
+////        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYear(productionYear));
+//        model.addAttribute("listOfCarsByYear",carDaoImpl.getCarFromListByYcear(car));
+////        model.addAttribute("listOfCarsByYear1",getCarByTheYear(productionYear,productionYear));
+//            return  "redirect:/carsbyear/{productionYear}";
+////        } else {
+////            return "redirect:/error";
+////        }
+//    }
 //
 //    @EventListener(ApplicationReadyEvent.class)
 //    public void testCarBY()
 //    {
-//           int year = 2011;
 //
+//        for(int i : carDaoImpl.listOfProductionYears())
+//        {
+//            System.out.println(i);
+//        }
 //
-//        System.out.println(carDaoImpl.getCarFromListByYcear(year));
+//        System.out.println(carDaoImpl.showListOfCars());
 //    }
 
 //    @GetMapping("/carsbyear")

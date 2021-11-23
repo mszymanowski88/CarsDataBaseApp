@@ -42,34 +42,74 @@
 
 </form>
 
-<p style="background-color:#F0E68C;">===============By Year============================ </p>
-<form th:action="@{/carsbyear}" th:object="${newCar}" method="post">
-    <p>Id: <input type="text" th:field="*{productionYear}"></p>
-    <p><input type="submit" value="Delete"></p>
-
-</form>
-
-<!--<p style="background-color:#F0E68C;">===============Find Car by Year ============================ </p>-->
-<!--&lt;!&ndash;<tr th:each="car: ${db}">&ndash;&gt;-->
-<!--<form     th:action="@{/carsbyear/{productionYear} (productionYear=${newCar.getProductionYear()})}"  th:object="${listOfCarsByYear}"  method="post">-->
-<!--&lt;!&ndash;&lt;!&ndash;<form  action="#" th:action="@{/carsbyear/{productionYear} (productionYear=${car.getProductionYear()})}"   method="get">&ndash;&gt;&ndash;&gt;-->
+<!--<p style="background-color:#F0E68C;">===============By Year============================ </p>-->
+<!--&lt;!&ndash;<form th:action="@{/carsbyear}" th:object="${newCar}" method="post">&ndash;&gt;-->
 <!--    <p>Id: <input type="text" th:field="*{productionYear}"></p>-->
-<!--    <p><input type="submit" value="get"></p>-->
-
-
-<!--    th:object="${listOfCarsByYear}"-->
-    <!--    <p>Year: <input type="text" th:field="*{get(1)}"></p>-->
-<!--    <p><input type="submit" value="get"></p>-->
-<!--<form th:action="@{/delete}" th:object="${newCar}" method="post">-->
-<!--    <p>Id: <input type="text" th:field="*{id}"></p>-->
 <!--    <p><input type="submit" value="Delete"></p>-->
 
-</form>
+<!--</form>-->
+
+<!--<p style="background-color:#F0E68C;">===============By Year============================ </p>-->
+<!--<tr th:each="car: ${listOfCarsByYear1}">-->
+<!--    <form action="#" th:action="@{'/car/{id}'(id=${car.productionYear})}" th:method="get">-->
+
+<!--            <p>Id: <input type="text" th:field="*{car.productionYear}"></p>-->
+<!--&lt;!&ndash;        Car of Id <span th:text="${car.productionYear}">Get Car</span>&ndash;&gt;-->
+<!--        <button id="submit" type="submit">Get car</button>-->
+<!--    </form>-->
+
+<!--<p style="background-color:#F0E68C;">===============Find Car by Year ============================ to dobre </p>-->
+<!--<tr th:each="car: ${db}">-->
+
+<!--    <div th:with="intList = ${ car.getProductionYear() }">-->
+<!--<form     th:action="@{/carsbyear/{productionYear} (productionYear=${car.getProductionYear()})}"  th:object="${car}"  method="post">-->
+<!--&lt;!&ndash;&lt;!&ndash;<form  action="#" th:action="@{/carsbyear/{productionYear} (productionYear=${car.getProductionYear()})}"   method="get">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <p>Id: <input type="text" th:field="*{}"></p>&ndash;&gt;-->
+<!--    Car of Id <span th:text="${intList}">Get Car</span>-->
+<!--    <button id="submit" type="submit">Get production year </button>-->
+<!--&lt;!&ndash;    <p><input type="submit" value="get" ></p>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;    th:object="${listOfCarsByYear}"&ndash;&gt;-->
+<!--    &lt;!&ndash;    <p>Year: <input type="text" th:field="*{get(1)}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><input type="submit" value="get"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;<form th:action="@{/delete}" th:object="${newCar}" method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;    <p>Id: <input type="text" th:field="*{id}"></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><input type="submit" value="Delete"></p>&ndash;&gt;-->
+
+<!--</form>-->
+
+
+        <p style="background-color:#F0E68C;">===============Find Car by Year ============================ </p>
+
+<tr th:each="car: ${listOfCarsByYear12}">
+<!--    <td th:text="${car}"/>-->
+
+<td>
+<!--        <form     th:action="@{/carsbyear/{productionYear} (productionYear=${car})}"  th:object="${listOfCarsByYear12}"  method="get">-->
+<!--            &lt;!&ndash;&lt;!&ndash;<form  action="#" th:action="@{/carsbyear/{productionYear} (productionYear=${car.getProductionYear()})}"   method="get">&ndash;&gt;&ndash;&gt;-->
+<!--            &lt;!&ndash;    <p>Id: <input type="text" th:field="*{}"></p>&ndash;&gt;-->
+<!--            <td>-->
+                <a th:href="@{/carsbyear/{productionYear} (productionYear=${car})}"  th:text="${car}" class="button"></a>
+            </td>
+<!--            <button id="submit" type="submit">Get production year </button>-->
+            <!--    <p><input type="submit" value="get" ></p>-->
+
+
+            <!--    th:object="${listOfCarsByYear}"-->
+            <!--    <p>Year: <input type="text" th:field="*{get(1)}"></p>-->
+            <!--    <p><input type="submit" value="get"></p>-->
+            <!--<form th:action="@{/delete}" th:object="${newCar}" method="post">-->
+            <!--    <p>Id: <input type="text" th:field="*{id}"></p>-->
+            <!--    <p><input type="submit" value="Delete"></p>-->
+
+        </form>
+   \
 
     <!--    Year <span th:text="${car.getProductionYear()}">Get Car</span>-->
 <!--    <button id="submit" class="button" type="submit">Get car</button>-->
 
-</form>
+<!--</form>-->
 
 <!--<p style="background-color:#F0E68C;">===============Find Car by Year ============================ </p>-->
 <!--&lt;!&ndash;<tr th:each="car: ${db}">&ndash;&gt;-->
@@ -139,24 +179,24 @@
 
 <p style="background-color:#F0E68C;">===============Car By Year============================ </p>
 
-<table>
-    <tr>
-        <th>Id:</th>
-        <th>Brand:</th>
-        <th>Model:</th>
-        <th>Colour:</th>
-        <th>Production Year:</th>
-    </tr>
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>Id:</th>-->
+<!--        <th>Brand:</th>-->
+<!--        <th>Model:</th>-->
+<!--        <th>Colour:</th>-->
+<!--        <th>Production Year:</th>-->
+<!--    </tr>-->
 
-    <tr th:each="car: ${listOfCarsByYear}">
+<!--    <tr th:each="car: ${listOfCarsByYear1}">-->
 
-                <td th:text="${car.getId()}"/></td>
 
-        <td th:text="${car.getId()}"/></td>
-        <td th:text="${car.getBrand()}"/></td>
-        <td th:text="${car.getModel()}"/></td>
-        <td th:text="${car.getColor()}"/></td>
-        <td th:text="${car.getProductionYear()}"/>
+<!--        <td th:text="${car.getId()}"/></td>-->
+<!--        <td th:text="${car.getBrand()}"/></td>-->
+<!--        <td th:text="${car.getModel()}"/></td>-->
+<!--        <td th:text="${car.getColor()}"/></td>-->
+<!--        <td th:text="${car.getProductionYear()}"/>-->
+
 
     </tr>
 

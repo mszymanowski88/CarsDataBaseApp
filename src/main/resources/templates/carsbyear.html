@@ -35,13 +35,17 @@
     <th>Production Year:</th>
   </tr>
 
-  <tr th:each="car: ${listOfCarsByYear}">
+  <tr th:each="car: ${listOfCarsByYear1}">
 
+
+<!--    <td th:text="${car}"/></td>-->
     <td th:text="${car.getId()}"/></td>
     <td th:text="${car.getBrand()}"/></td>
     <td th:text="${car.getModel()}"/></td>
     <td th:text="${car.getColor()}"/></td>
     <td th:text="${car.getProductionYear()}"/>
+
+
 
   </tr>
 
