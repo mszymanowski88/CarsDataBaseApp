@@ -1,8 +1,9 @@
 package com.example.carsdatabaseapp.dao;
 
 import com.example.carsdatabaseapp.model.Car;
-import com.example.carsdatabaseapp.model.CarList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -13,353 +14,143 @@ import java.util.*;
 public class CarDaoImpl implements CarDao {
 
     private JdbcTemplate jdbcTemplate;
-    CarList carList;
-    DataSource dataSource;
+
+    private  DataSource dataSource;
 
     @Autowired
-    public CarDaoImpl(JdbcTemplate jdbcTemplate, CarList carList, DataSource dataSource) {
+    public CarDaoImpl(JdbcTemplate jdbcTemplate, DataSource dataSource) {
         this.jdbcTemplate = jdbcTemplate;
-        this.carList = carList;
         this.dataSource = dataSource;
 
 
     }
 
-    public JdbcTemplate getJdbcTemplate()
-    {
+    public JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(dataSource);
 
     }
 
-//    @EventListener(ApplicationReadyEvent.class)
+//  @EventListener(ApplicationReadyEvent.class)
 //    public void initDB()
 //    {
-//        String sql = "CREATE TABLE cars (car_id int, brand varchar(255), model varchar(255), color varchar(255) , year int) ";
+//        String sql = "CREATE TABLE cars (car_id int AUTO_INCREMENT  primary key NOT NULL , brand varchar(255) NOT NULL , model varchar(255) NOT NULL , color varchar(255) NOT NULL , year int NOT NULL )";
 //        getJdbcTemplate().update(sql);
 //
 //    }
 
-
-
-
     @Override
-//    @EventListener(ApplicationReadyEvent.class)
     public void save(long id, String brand, String model, String color, int productionYear) {
 
-     String sql = "INSERT INTO cars VALUES(?,?,?,?,?)";
-     for(Car car : carList.getCarList())
+        if (productionYear > 2000) {
+            String sql = "INSERT INTO cars VALUES(?,?,?,?,?)";
+            jdbcTemplate.update(sql, id, brand, model, color, productionYear);
+        } else {
 
-     {
-         jdbcTemplate.update(sql,car.getId(),car.getBrand(), car.getModel(), car.getColor(), car.getProductionYear());
-
-
-     }
-
-
-//    @EventListener(ApplicationReadyEvent.class)
-
-
+            System.out.println("error");
+        }
 
 
     }
-//    @Query(value = "select * from Car  ", nativeQuery = true)
-//    List<Car> findByKeyword(@Param("keyword") String keyword);
 
-public void saveCar(long id, String brand, String model, String color, int productionYear) {
-
-    String sql = "INSERT INTO cars VALUES(?,?,?,?,?)";
-
-    jdbcTemplate.update(sql, id, brand, model, color, productionYear);
-
-}
-
-    void test (long id)
-    {
-
-        String sql = "SELECT *  FROM cars";
-
-        jdbcTemplate.update(sql, id);
-    }
-
-
-    public List<Car> showListOfCars()
-    {
-        List<Car> dbCarList = new ArrayList<>();
-        String sql = "SELECT *  FROM cars";
-        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-        maps.stream().forEach(element -> dbCarList.add(new Car(
-                Long.parseLong(String.valueOf(element.get("car_id"))),
-                String.valueOf(element.get("brand")),
-
-                String.valueOf(element.get("model")),
-                String.valueOf(element.get("color")),
-                Integer.parseInt(String.valueOf(element.get("year")))
-
-
-        )));
-
-        return  dbCarList;
-    }
-
-//    public  List<Car>  getCarFromListByYcear(Car car)
-//    {
-//
-//
-//        int topass = car.getProductionYear();
-//
-//        List<Car> dbCarList = new ArrayList<>();
-//        String sql = "SELECT * FROM cars WHERE year="+topass;
-//        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-//        maps.stream().forEach(element -> dbCarList.add(new Car(
-//                Long.parseLong(String.valueOf(element.get("car_id"))),
-//                String.valueOf(element.get("brand")),
-//
-//                String.valueOf(element.get("model")),
-//                String.valueOf(element.get("color")),
-//                Integer.parseInt(String.valueOf(element.get("year")))
-//
-//
-//        )));
-//
-//        return  dbCarList;
-//    }
-
-//
-    public  List<Car>  getCarFromListByYearFinal(int productionYear)
-    {
-
-
-        int topass = productionYear;
-
-        List<Car> dbCarList = new ArrayList<>();
-        String sql = "SELECT * FROM cars WHERE year="+topass;
-        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-        maps.stream().forEach(element -> dbCarList.add(new Car(
-                Long.parseLong(String.valueOf(element.get("car_id"))),
-                String.valueOf(element.get("brand")),
-
-                String.valueOf(element.get("model")),
-                String.valueOf(element.get("color")),
-                Integer.parseInt(String.valueOf(element.get("year")))
-
-
-        )));
-
-        return  dbCarList;
-    }
-
-
-    public List listOfProductionYears()
-    {
+    public List listOfProductionYears() {
         Set<Integer> list = new HashSet<>();
 
 
-        for(Car car : showListOfCars())
-        {
+        for (Car car : showListOfCars()) {
 
             list.add(car.getProductionYear());
         }
-        Integer[] array = list.stream().toArray(Integer[]::new);
+
+        List<Integer> sortdedList = new ArrayList<>(list);
+        Collections.sort(sortdedList);
 
 
-        return  new ArrayList<>(Arrays.asList(array));
+
+        return sortdedList;
     }
-//
-//    public  List<Car>  getCarFromListByYearFinal1(int productionYear)
-//    {
-//        listOfProductionYears().get(productionYear)
-//
-//        return  dbCarList;
-//    }
-//
-//    @EventListener(ApplicationReadyEvent.class)
-//    public void testTest()
-//    {
-//        for( Integer i : listOfProductionYears())
-//        {
-//            System.out.println(i);
-//
-//        }
-//
-//    }
+
+    public List<String> listOfBrands() {
+        Set<String> list = new HashSet<>();
 
 
-//    public  Car searchTheYear (Car car)
-//    {
-//
-//
-//        int topass = car.getProductionYear();
-//
-//        List<Car> dbCarList = new ArrayList<>();
-//        String sql = "SELECT * FROM cars WHERE year="+topass;
-//        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-//        maps.stream().forEach(element -> dbCarList.add(new Car(
-//                Long.parseLong(String.valueOf(element.get("car_id"))),
-//                String.valueOf(element.get("brand")),
-//
-//                String.valueOf(element.get("model")),
-//                String.valueOf(element.get("color")),
-//                Integer.parseInt(String.valueOf(element.get("year")))
-//
-//
-//        )));
-//
-//        return  dbCarList;
-//    }
+        for (Car car : showListOfCars()) {
+
+            list.add(car.getBrand());
+        }
+        List<String> sortdedList = new ArrayList<>(list);
+        Collections.sort(sortdedList);
 
 
-//    public  List<Car>  getCarFromListByYcear1()
-//    {
-//
-//
-//
-//
-//        List<Car> dbCarList = new ArrayList<>();
-//        String sql = "SELECT * FROM cars WHERE year="+2011;
-//        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-//        maps.stream().forEach(element -> dbCarList.add(new Car(
-//                Long.parseLong(String.valueOf(element.get("car_id"))),
-//                String.valueOf(element.get("brand")),
-//
-//                String.valueOf(element.get("model")),
-//                String.valueOf(element.get("color")),
-//                Integer.parseInt(String.valueOf(element.get("year")))
-//
-//
-//        )));
-//
-//        return  dbCarList;
-//    }
+        return sortdedList;
+    }
 
-//    public  List<Car>  getCarFromListByYcear(Car car)
-//    {
-//
-//
-//        int topass = car.getProductionYear();
-//
-//        List<Car> dbCarList = new ArrayList<>();
-//        String sql = "SELECT * FROM cars WHERE year="+topass;
-//        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-//        maps.stream().forEach(element -> dbCarList.add(new Car(
-//                Long.parseLong(String.valueOf(element.get("car_id"))),
-//                String.valueOf(element.get("brand")),
-//
-//                String.valueOf(element.get("model")),
-//                String.valueOf(element.get("color")),
-//                Integer.parseInt(String.valueOf(element.get("year")))
-//
-//
-//        )));
-//
-//        return  dbCarList;
-//    }
+    @EventListener(ApplicationReadyEvent.class)
+    public void test() {
+        for (String s : listOfBrands()) {
+            System.out.println(s);
+
+        }
+    }
 
 
+    @EventListener(ApplicationReadyEvent.class)
+    public void test1() {
+        System.out.println("test komendy");
+        System.out.println(getCarFromListByBrand("Fiat"));
+    }
 
-
-//    public  List<Car>  getCarFromList( )
-//    {
-//        List<Car> dbCarList = new ArrayList<>();
-//        String sql = "SELECT * FROM cars WHERE   ";
-//        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-//        maps.stream().forEach(element -> dbCarList.add(new Car(
-//                Long.parseLong(String.valueOf(element.get("car_id"))),
-//                String.valueOf(element.get("brand")),
-//
-//                String.valueOf(element.get("model")),
-//                String.valueOf(element.get("color")),
-//                Integer.parseInt(String.valueOf(element.get("year")))
-//
-//
-//        )));
-//
-//        return  dbCarList;
-//    }
-
-
-//    String sql = "INSERT INTO cars VALUES(?,?,?,?,?)";
-//
-//    jdbcTemplate.update(sql, id, brand, model, color, productionYear);
-//    public  List<Car>  getCarFromListByYcear(int year)
-//    {
-//
-//
-//       int topass = year;
-//
-//        List<Car> dbCarList = new ArrayList<>();
-//        String sql = "SELECT * FROM cars WHERE year="+topass;
-//        List<Map<String,Object>> maps = jdbcTemplate.queryForList(sql);
-//        maps.stream().forEach(element -> dbCarList.add(new Car(
-//                Long.parseLong(String.valueOf(element.get("car_id"))),
-//                String.valueOf(element.get("brand")),
-//
-//                String.valueOf(element.get("model")),
-//                String.valueOf(element.get("color")),
-//                Integer.parseInt(String.valueOf(element.get("year")))
-//
-//
-//        )));
-//
-//        return  dbCarList;
-//    }
-
-
-
-
-//@EventListener(ApplicationReadyEvent.class)
-//    public void showCars()
-//    {
-//        for(Car car : getCarFromListByYear())
-//        {
-//
-//            System.out.println(car);
-//        }
-//
-//    }
 
     @Override
-//    @RequestMapping(value="/carsDb")
     public void deleteCar(long id) {
 
-        String sql ="DELETE FROM cars WHERE car_id=?";
-                jdbcTemplate.update(sql, id);
+        String sql = "DELETE FROM cars WHERE car_id=?";
+        jdbcTemplate.update(sql, id);
         System.out.println("usuniete");
 
     }
 
-//    @EventListener(ApplicationReadyEvent.class)
-//    public void deleteCar1(long id) {
-//
-//        id = 1;
-//
-//        String sql ="DELETE FROM cars WHERE car_id=?" ;
-//        jdbcTemplate.update(sql, id);
-//
-//    }
+    public List<Car> maps(String sql) {
 
 
+        List<Car> dbCarList = new ArrayList<>();
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+        maps.stream().forEach(element -> dbCarList.add(new Car(
+                Long.parseLong(String.valueOf(element.get("car_id"))),
+                String.valueOf(element.get("brand")),
+
+                String.valueOf(element.get("model")),
+                String.valueOf(element.get("color")),
+                Integer.parseInt(String.valueOf(element.get("year")))
+        )));
+
+        return dbCarList;
 
 
-    public Optional<Car> getCarByYear(int year) {
-
-        System.out.println("Year :"+ year);
-        return carList.getCarList()
-                .stream()
-                .filter(car -> car.getProductionYear() == year)
-                .findAny();
     }
 
-    public Car getCarByYear1(int year) {
+    @Override
+    public List<Car> getCarFromListByYear(int productionYear) {
 
-        System.out.println("Year :"+ year);
-        return carList.getCarList()
-                .stream()
-                .filter(car -> car.getProductionYear() == year)
-                .findFirst().get();
+        String sql = "SELECT * FROM cars WHERE year=" + productionYear;
+
+        return maps(sql);
     }
 
+    @Override
+    public List<Car> showListOfCars() {
 
+        String sql = "SELECT *  FROM cars ORDER BY car_id";
 
+        return maps(sql);
+    }
+
+    @Override
+    public List<Car> getCarFromListByBrand(String brand) {
+
+        String sql = "SELECT * FROM cars WHERE brand='" + brand + "'";
+
+        return maps(sql);
+    }
 
 
 }

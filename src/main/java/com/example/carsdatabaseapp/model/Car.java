@@ -1,17 +1,25 @@
 package com.example.carsdatabaseapp.model;
 
+
+//import com.sun.istack.NotNull;
+
+
 public class Car {
 
-    String brand;
-    int productionYear;
-    String model;
-   String color;
+
+    private String brand;
+
+    private int productionYear;
+    private String model;
+    private String color;
+
+
     long id;
 
     public Car() {
     }
 
-    public Car(long id, String brand, String model, String color, int productionYear) {
+    public Car( long id,  String brand, String model, String color, int productionYear) {
         this.id = id;
         this.brand = brand;
 
@@ -19,6 +27,7 @@ public class Car {
         this.color = color;
         this.productionYear = productionYear;
     }
+
 
     public String getBrand() {
         return brand;

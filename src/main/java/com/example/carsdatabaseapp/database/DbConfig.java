@@ -1,4 +1,4 @@
-package com.example.carsdatabaseapp;
+package com.example.carsdatabaseapp.database;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
