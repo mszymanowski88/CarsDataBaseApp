@@ -1,14 +1,12 @@
 package com.example.carsdatabaseapp.model;
 
 
-//import com.sun.istack.NotNull;
+
 
 
 public class Car {
 
-
     private String brand;
-
     private int productionYear;
     private String model;
     private String color;

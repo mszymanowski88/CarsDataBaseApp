@@ -2,8 +2,6 @@ package com.example.carsdatabaseapp.dao;
 
 import com.example.carsdatabaseapp.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +11,9 @@ import java.util.*;
 @Repository
 public class CarDaoImpl implements CarDao {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
-    private  DataSource dataSource;
+    private final DataSource dataSource;
 
     @Autowired
     public CarDaoImpl(JdbcTemplate jdbcTemplate, DataSource dataSource) {
@@ -52,6 +50,7 @@ public class CarDaoImpl implements CarDao {
 
     }
 
+    @Override
     public List listOfProductionYears() {
         Set<Integer> list = new HashSet<>();
 
@@ -84,32 +83,16 @@ public class CarDaoImpl implements CarDao {
         return sortdedList;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void test() {
-        for (String s : listOfBrands()) {
-            System.out.println(s);
-
-        }
-    }
-
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void test1() {
-        System.out.println("test komendy");
-        System.out.println(getCarFromListByBrand("Fiat"));
-    }
-
 
     @Override
     public void deleteCar(long id) {
 
         String sql = "DELETE FROM cars WHERE car_id=?";
         jdbcTemplate.update(sql, id);
-        System.out.println("usuniete");
 
     }
 
-    public List<Car> maps(String sql) {
+private List<Car> maps(String sql) {
 
 
         List<Car> dbCarList = new ArrayList<>();
@@ -117,7 +100,6 @@ public class CarDaoImpl implements CarDao {
         maps.stream().forEach(element -> dbCarList.add(new Car(
                 Long.parseLong(String.valueOf(element.get("car_id"))),
                 String.valueOf(element.get("brand")),
-
                 String.valueOf(element.get("model")),
                 String.valueOf(element.get("color")),
                 Integer.parseInt(String.valueOf(element.get("year")))

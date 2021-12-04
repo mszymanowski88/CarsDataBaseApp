@@ -29,7 +29,7 @@
 
     </p>
     <p>Brand: <input type="text" th:field="*{brand}"></p>
-    <td th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}">Name Error</td>
+
 
 
     <p>Model: <input type="text" th:field="*{model}"></p>
@@ -94,8 +94,8 @@
         <td th:text="${car.getModel()}"/>
         </td>
         <td th:text="${car.getColor()}"/>
-        </td>
-        <td th:text="${car.getProductionYear()}"/>
+
+        <td th:text="${car.getProductionYear()}" />
 
     </tr>
 

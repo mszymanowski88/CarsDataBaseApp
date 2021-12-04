@@ -1,4 +1,4 @@
-package com.example.carsdatabaseapp.database;
+package com.example.carsdatabaseapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,8 +17,7 @@ public class DbConfig {
     }
 
     @Bean
-    public JdbcTemplate getJdbcTemplate()
-    {
+    public JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(dataSource);
 
     }

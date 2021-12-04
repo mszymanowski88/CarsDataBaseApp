@@ -15,4 +15,6 @@ public interface CarDao {
     public List<Car> getCarFromListByYear(int productionYear);
 
     public List<Car> getCarFromListByBrand(String brand);
+
+    public List listOfProductionYears();
 }
