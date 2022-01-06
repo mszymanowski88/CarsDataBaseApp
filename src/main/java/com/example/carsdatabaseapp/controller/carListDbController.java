@@ -56,9 +56,6 @@ public class carListDbController implements WebMvcConfigurer {
     }
 
 
-
-
-
     @PostMapping("/delete")
     public String removeCar(Car car1) {
         carDaoImpl.deleteCar(car1.getId());
@@ -69,7 +66,7 @@ public class carListDbController implements WebMvcConfigurer {
 
 
     @PostMapping("/add")
-    public String addCar( @ModelAttribute Car car) {
+    public String addCar(@ModelAttribute Car car) {
 
 
         carDaoImpl.save(car.getId(), car.getBrand(), car.getModel(), car.getColor(), car.getProductionYear());
@@ -85,6 +82,15 @@ public class carListDbController implements WebMvcConfigurer {
         carDaoImpl.initDB();
 
         return "redirect:/carsDb";
+
+    }
+
+    @PostMapping("/deletedatabase")
+    public String removeDb() {
+        carDaoImpl.deleteDatabase();
+
+        return "redirect:/error";
+
 
     }
 

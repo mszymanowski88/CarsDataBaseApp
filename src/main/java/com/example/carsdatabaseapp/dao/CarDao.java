@@ -8,19 +8,21 @@ public interface CarDao {
 
     void save(long id, String brand, String model, String color, int productionYear);
 
-    public void initDB();
+    void initDB();
 
     List<Car> showListOfCars();
 
     void deleteCar(long id);
 
-     List<Car> getCarFromListByYear(int productionYear);
+    List<Car> getCarFromListByYear(int productionYear);
 
-     List<Car> getCarFromListByBrand(String brand);
+    List<Car> getCarFromListByBrand(String brand);
 
-     List listOfProductionYears();
+    List listOfProductionYears();
 
-    public List<String> listOfBrands();
+    List<String> listOfBrands();
 
-     Car newCarToAdd(Car car1);
+    Car newCarToAdd(Car car1);
+
+    void deleteDatabase();
 }

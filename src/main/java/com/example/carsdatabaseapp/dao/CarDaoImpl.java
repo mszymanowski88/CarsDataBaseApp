@@ -27,7 +27,8 @@ public class CarDaoImpl implements CarDao {
 
     }
 
-    @Override public Car newCarToAdd(Car car1) {
+    @Override
+    public Car newCarToAdd(Car car1) {
         Car carToAdd = new Car(car1.getId(), car1.getBrand(), car1.getModel(), car1.getColor(), car1.getProductionYear());
 
         return carToAdd;
@@ -35,8 +36,7 @@ public class CarDaoImpl implements CarDao {
     }
 
     @Override
-    public void initDB()
-    {
+    public void initDB() {
         String sql = "CREATE TABLE cars (car_id int AUTO_INCREMENT  primary key NOT NULL , brand varchar(255) NOT NULL , model varchar(255) NOT NULL , color varchar(255) NOT NULL , year int NOT NULL )";
         getJdbcTemplate().update(sql);
 
@@ -68,7 +68,6 @@ public class CarDaoImpl implements CarDao {
 
         List<Integer> sortdedList = new ArrayList<>(list);
         Collections.sort(sortdedList);
-
 
 
         return sortdedList;
@@ -139,6 +138,15 @@ public class CarDaoImpl implements CarDao {
         String sql = "SELECT * FROM cars WHERE brand='" + brand + "'";
 
         return maps(sql);
+    }
+
+    @Override
+    public void deleteDatabase() {
+
+
+        String sql = "DROP TABLE IF EXISTS cars";
+
+        jdbcTemplate.update(sql);
     }
 
 

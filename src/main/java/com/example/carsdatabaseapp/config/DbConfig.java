@@ -2,11 +2,10 @@ package com.example.carsdatabaseapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
-@Component
+
 public class DbConfig {
 
     private final DataSource dataSource;
