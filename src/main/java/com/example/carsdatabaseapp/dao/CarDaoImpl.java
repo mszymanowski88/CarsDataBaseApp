@@ -2,6 +2,8 @@ package com.example.carsdatabaseapp.dao;
 
 import com.example.carsdatabaseapp.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -45,13 +47,9 @@ public class CarDaoImpl implements CarDao {
     @Override
     public void save(long id, String brand, String model, String color, int productionYear) {
 
-        if (productionYear > 2000) {
-            String sql = "INSERT INTO cars VALUES(?,?,?,?,?)";
-            jdbcTemplate.update(sql, id, brand, model, color, productionYear);
-        } else {
 
-            System.out.println("error");
-        }
+        String sql = "INSERT INTO cars VALUES(?,?,?,?,?)";
+        jdbcTemplate.update(sql, id, brand, model, color, productionYear);
 
 
     }
@@ -117,12 +115,29 @@ public class CarDaoImpl implements CarDao {
     }
 
     @Override
+    public List<Car> getCarFromListFromYearRange(int year1, int year2) {
+
+
+        String sql = "SELECT * FROM cars WHERE year BETWEEN " + year1 + " AND " + year2;
+
+        return maps(sql);
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void test() {
+        System.out.println(getCarFromListFromYearRange(2019, 2022));
+
+    }
+
+
+    @Override
     public List<Car> getCarFromListByYear(int productionYear) {
 
         String sql = "SELECT * FROM cars WHERE year=" + productionYear;
 
         return maps(sql);
     }
+
 
     @Override
     public List<Car> showListOfCars() {

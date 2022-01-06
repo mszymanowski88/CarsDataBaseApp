@@ -20,6 +20,8 @@ public interface CarDao {
 
     List listOfProductionYears();
 
+    List<Car> getCarFromListFromYearRange(int year1, int year2);
+
     List<String> listOfBrands();
 
     Car newCarToAdd(Car car1);

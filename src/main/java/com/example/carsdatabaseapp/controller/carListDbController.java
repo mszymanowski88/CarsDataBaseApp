@@ -5,10 +5,7 @@ import com.example.carsdatabaseapp.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
@@ -46,6 +43,21 @@ public class carListDbController implements WebMvcConfigurer {
 
         return "carsbyear";
     }
+
+
+    @GetMapping("/carsbyearrange")
+    public String addCar(
+            @RequestParam(value = "input", required = false) Integer input,
+            @RequestParam(value = "input2", required = false) Integer input2, Model model
+
+    ) {
+
+        model.addAttribute("carsbyyear", carDaoImpl.getCarFromListFromYearRange(input, input2));
+
+        return "carsbyearrange";
+
+    }
+
 
     @GetMapping("/carsbybrand/{brand}")
     public String showbyBrand(@PathVariable String brand, Model model) {

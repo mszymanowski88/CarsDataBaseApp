@@ -70,6 +70,18 @@
 
 </tr>
 
+<p style="background-color:#F0E68C;">===============Find Car by Year Range ============================ </p>
+
+
+<form th:action="@{/carsbyearrange}" method="get" >
+    <input type="number" th:name="input"/>
+    <input type="number" th:name="input2"/>
+
+    <button type="submit">Search</button>
+</form>
+
+</tr>
+
 <p style="background-color:#F0E68C;">===============Find Car by Brand ============================ </p>
 
 <tr th:each="car: ${listOfCarsByBrand}">
@@ -77,7 +89,7 @@
     <a th:href="@{/carsbybrand/{brand} (brand=${car})}" th:text="${car}" class="button"></a>
 
 
-    \
+
 
 
 </tr>
