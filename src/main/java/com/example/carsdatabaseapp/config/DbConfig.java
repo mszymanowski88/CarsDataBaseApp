@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 @Component
 public class DbConfig {
 
-    DataSource dataSource;
+    private final DataSource dataSource;
 
 
     public DbConfig(DataSource dataSource) {

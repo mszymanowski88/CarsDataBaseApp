@@ -12,7 +12,6 @@ import java.util.*;
 public class CarDaoImpl implements CarDao {
 
     private final JdbcTemplate jdbcTemplate;
-
     private final DataSource dataSource;
 
     @Autowired
@@ -28,13 +27,20 @@ public class CarDaoImpl implements CarDao {
 
     }
 
-//  @EventListener(ApplicationReadyEvent.class)
-//    public void initDB()
-//    {
-//        String sql = "CREATE TABLE cars (car_id int AUTO_INCREMENT  primary key NOT NULL , brand varchar(255) NOT NULL , model varchar(255) NOT NULL , color varchar(255) NOT NULL , year int NOT NULL )";
-//        getJdbcTemplate().update(sql);
-//
-//    }
+    @Override public Car newCarToAdd(Car car1) {
+        Car carToAdd = new Car(car1.getId(), car1.getBrand(), car1.getModel(), car1.getColor(), car1.getProductionYear());
+
+        return carToAdd;
+
+    }
+
+    @Override
+    public void initDB()
+    {
+        String sql = "CREATE TABLE cars (car_id int AUTO_INCREMENT  primary key NOT NULL , brand varchar(255) NOT NULL , model varchar(255) NOT NULL , color varchar(255) NOT NULL , year int NOT NULL )";
+        getJdbcTemplate().update(sql);
+
+    }
 
     @Override
     public void save(long id, String brand, String model, String color, int productionYear) {
@@ -68,6 +74,7 @@ public class CarDaoImpl implements CarDao {
         return sortdedList;
     }
 
+    @Override
     public List<String> listOfBrands() {
         Set<String> list = new HashSet<>();
 
@@ -92,7 +99,7 @@ public class CarDaoImpl implements CarDao {
 
     }
 
-private List<Car> maps(String sql) {
+    private List<Car> maps(String sql) {
 
 
         List<Car> dbCarList = new ArrayList<>();

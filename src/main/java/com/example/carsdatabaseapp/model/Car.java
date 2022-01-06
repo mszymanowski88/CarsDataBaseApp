@@ -1,18 +1,13 @@
 package com.example.carsdatabaseapp.model;
 
 
-
-
-
 public class Car {
 
     private String brand;
     private int productionYear;
     private String model;
     private String color;
-
-
-    long id;
+    private long id;
 
     public Car() {
     }
@@ -20,7 +15,6 @@ public class Car {
     public Car( long id,  String brand, String model, String color, int productionYear) {
         this.id = id;
         this.brand = brand;
-
         this.model = model;
         this.color = color;
         this.productionYear = productionYear;

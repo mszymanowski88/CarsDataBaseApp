@@ -5,7 +5,6 @@ import com.example.carsdatabaseapp.model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,8 +31,8 @@ public class carListDbController implements WebMvcConfigurer {
 
 
         model.addAttribute("db", carDaoImpl.showListOfCars());
-        model.addAttribute("newCar", newCarToAdd(new Car()));
-        model.addAttribute("carToRemove", removeCar1(new Car()));
+        model.addAttribute("newCar", carDaoImpl.newCarToAdd(new Car()));
+        model.addAttribute("carToRemove", removeCar(new Car()));
         model.addAttribute("listOfCarsByYear", carDaoImpl.listOfProductionYears());
         model.addAttribute("listOfCarsByBrand", carDaoImpl.listOfBrands());
 
@@ -57,16 +56,11 @@ public class carListDbController implements WebMvcConfigurer {
     }
 
 
-    public Car newCarToAdd(Car car1) {
-        Car carToAdd = new Car(car1.getId(), car1.getBrand(), car1.getModel(), car1.getColor(), car1.getProductionYear());
 
-        return carToAdd;
-
-    }
 
 
     @PostMapping("/delete")
-    public String removeCar1(Car car1) {
+    public String removeCar(Car car1) {
         carDaoImpl.deleteCar(car1.getId());
         return "redirect:/carsDb";
 
@@ -75,13 +69,20 @@ public class carListDbController implements WebMvcConfigurer {
 
 
     @PostMapping("/add")
-    public String addCar(@ModelAttribute Car car, BindingResult bindingResult) {
+    public String addCar( @ModelAttribute Car car) {
 
 
         carDaoImpl.save(car.getId(), car.getBrand(), car.getModel(), car.getColor(), car.getProductionYear());
-        if (bindingResult.hasErrors()) {
-            return "carsDb";
-        }
+
+
+        return "redirect:/carsDb";
+
+    }
+
+    @PostMapping("/create")
+    public String createNewDb() {
+
+        carDaoImpl.initDB();
 
         return "redirect:/carsDb";
 

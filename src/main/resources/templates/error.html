@@ -5,11 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<h1>There is no such car</h1>
+<h1>Welcome in Car search app</h1>
 
 <button onclick="goBack()">Go Back</button>
 
 <p>Please click on the button above and type again the data properly </p>
+
+<p style="background-color:#F0E68C;">===============Create Inquiry============================ </p>
+<form th:action="@{/create}"  method="post">
+
+    <p><input type="submit" value="Create"></p>
+    <br>
+</form>
 
 <script>
   function goBack() {
